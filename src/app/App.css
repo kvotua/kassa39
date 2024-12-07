@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+
+}
+
+:focus:not(:focus-visible) {
+    outline: 0;
+    box-shadow: none;
+  }
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    background-color:  #e8e0fd;
+    font-family: "Nunito", sans-serif;
+}
