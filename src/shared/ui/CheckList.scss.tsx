@@ -36,6 +36,17 @@ export const ItemList = styled.div`
     flex-direction: column;
 `;
 
+export const EmptyList = styled.div`
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+`;
+
 export const Item = styled.div`
     display: flex;
     justify-content: space-between;

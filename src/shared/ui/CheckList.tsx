@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
-import { CashierPanel, Avatar, CashierName, CheckContainer, ItemList, Item, TotalContainer, Button} from './CheckList.scss'
+import { CashierPanel, Avatar, CashierName, CheckContainer, ItemList, Item, TotalContainer, Button, EmptyList} from './CheckList.scss'
 import { DragDropContext, Droppable, Draggable, DroppableProvided, DraggableProvided, DropResult } from 'react-beautiful-dnd';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart, clearCart } from '../../redux/cartSlice';
+import { RootState } from '../../redux/store';
+import Lottie from 'lottie-react';
+import EmpryCart from '../../assets/EmptyCart.json';
 import Mark from '../../assets/icon-mark.png'
 import DefaultAvatar from '../../assets/DefaultAvatar.png'
 
 const CheckList = () => {
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state: RootState) => state.cart.items);
+
+    const handleRemoveFromCart = (itemId: number) => {
+        dispatch(removeFromCart(itemId));
+    };
+
+    const handleClearCart = () => {
+        dispatch(clearCart());
+    };
+
     const [items, setItems] = useState([
         { id: 1, name: 'Товар 1', quantity: '2 кг', price: '200 руб', marked: true },
         { id: 2, name: 'Товар 2', quantity: '1 л', price: '150 руб', marked: false },
@@ -29,18 +45,23 @@ const CheckList = () => {
                 <Avatar src={DefaultAvatar} />
                 <CashierName>Иванов Иван Иванович</CashierName>
             </CashierPanel>
+            {cartItems.length === 0 ? (
+                <EmptyList>
+                    <Lottie animationData={EmpryCart} style={{ width: '50%', height: 'auto' }} loop={true} />
+                </EmptyList>
+            ) : (
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="items">
                     {(provided: DroppableProvided) => (
                         <ItemList {...provided.droppableProps} ref={provided.innerRef}>
-                            {items.map((item, index) => (
+                            {cartItems.map((item, index) => (
                                 <Draggable key={item.id} draggableId={String(item.id)} index={index}>
                                     {(provided: DraggableProvided) => (
                                         <Item ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                             <div>
                                                 {item.name} - {item.quantity} 
                                             </div>
-                                            {item.marked && <img src={Mark} alt="Маркировка" />}
+                                            {item.mark && <img src={Mark} alt="Маркировка" />}
                                             <div>{item.price}</div>
                                         </Item>
                                     )}
@@ -51,6 +72,7 @@ const CheckList = () => {
                     )}
                 </Droppable>
             </DragDropContext>
+            )}
             <TotalContainer>
                 <div>Итого: {totalPrice} руб</div>
                 <Button>Провести чек</Button>
