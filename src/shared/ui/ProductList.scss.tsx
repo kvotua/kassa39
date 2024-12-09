@@ -6,10 +6,8 @@ export const CategoryList = styled.div`
     justify-content: left;
     margin: 10px 20px 0 20px;
 
-    // scrollbar-width: thin;
     -ms-overflow-style: -ms-autohiding-scrollbar; 
 
-    // white-space: nowrap;
     overflow-x: auto; 
 
     &::-webkit-scrollbar {
@@ -78,6 +76,10 @@ export const ProductCard = styled.div`
     padding: 16px; 
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     transition: transform 0.2s ease;
 
@@ -85,6 +87,92 @@ export const ProductCard = styled.div`
         transform: scale(0.95); 
     }
 `;
+
+export const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    animation: fadeIn 0.3s ease;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h2 {
+        margin: 0 0 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        outline: none;
+
+        // &:focus {
+        //     border-color: #007bff; 
+        //     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+        // }
+    }
+
+    button {
+        background-color: #6a3b88;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+
+        &:hover {
+            background-color: #a04e9e;
+        }
+    }
+
+    .close-button {
+        background-color: transparent;
+        color: #333;
+        border: 1px solid #ccc;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: #f1f1f1;
+        }
+    }
+`; 
 
 
 export const ProductName = styled.h3`
